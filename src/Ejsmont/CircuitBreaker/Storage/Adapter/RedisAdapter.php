@@ -2,7 +2,7 @@
 
 /**
  * This file is part of the php-circuit-breaker package.
- * 
+ *
  * @link https://github.com/ejsmont-artur/php-circuit-breaker
  * @link http://artur.ejsmont.org/blog/circuit-breaker
  * @author Mario Bittencourt
@@ -12,39 +12,40 @@
 
 namespace Ejsmont\CircuitBreaker\Storage\Adapter;
 
+use Ejsmont\CircuitBreaker\Storage\Client\RedisClientInterface;
 use Ejsmont\CircuitBreaker\Storage\StorageException;
 
 /**
  * Reasonably useful implementation if you needed to share circuit breaker across servers.
- * It incurs the network connection penalty so for optimal performance APC or shared 
+ * It incurs the network connection penalty so for optimal performance APC or shared
  * memory is preferred but if extra milliseconds are not an issue this
  * adapter could work well. Consider using array adapter to minimise redis calls.
- * 
+ *
  * @see Ejsmont\CircuitBreaker\Storage\StorageInterface
  * @package Ejsmont\CircuitBreaker\Components
  */
 class RedisAdapter extends BaseAdapter {
 
     /**
-     * @var \Redis
+     * @var RedisClientInterface
      */
     private $redis;
 
     /**
      * Prepare instance
      *
-     * @param \Redis $redis
+     * @param RedisClientInterface $redis
      * @param int $ttl
      * @param bool|false $cachePrefix
      */
-    public function __construct(\Redis $redis, $ttl = 3600, $cachePrefix = false) {
+    public function __construct($redis, $ttl = 3600, $cachePrefix = false) {
         parent::__construct($ttl, $cachePrefix);
         $this->redis = $redis;
     }
 
     /**
      * Helper method to make sure that redis extension is loaded
-     * 
+     *
      * @throws Ejsmont\CircuitBreaker\Storage\StorageException if memcached is not loaded
      * @return void
      */
@@ -54,10 +55,10 @@ class RedisAdapter extends BaseAdapter {
 
     /**
      * Loads item by cache key.
-     * 
+     *
      * @param string $key
      * @return mixed
-     * 
+     *
      * @throws StorageException if storage error occurs, handler can not be used
      */
     protected function load($key) {
@@ -70,12 +71,12 @@ class RedisAdapter extends BaseAdapter {
 
     /**
      * Save item in the cache.
-     * 
+     *
      * @param string $key
      * @param string $value
      * @param int $ttl
      * @return void
-     * 
+     *
      * @throws StorageException if storage error occurs, handler can not be used
      */
     protected function save($key, $value, $ttl) {
@@ -85,5 +86,4 @@ class RedisAdapter extends BaseAdapter {
             throw new StorageException("Failed to save redis key: $key", 1, $e);
         }
     }
-
 }
