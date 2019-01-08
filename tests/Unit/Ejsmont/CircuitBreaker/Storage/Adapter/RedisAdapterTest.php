@@ -18,7 +18,7 @@ class RedisAdapterTest extends \PHPUnit_Framework_TestCase {
 
     protected function setUp() {
         parent::setUp();
-        if (!class_exists('\Redis')) {
+        if (!class_exists('\Redis') || !class_exists('\Predis\Client')) {
             $this->markTestSkipped("extension not loaded");
         }
         $this->_connection = new \Redis();
