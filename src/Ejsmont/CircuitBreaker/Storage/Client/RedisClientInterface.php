@@ -17,4 +17,11 @@ interface RedisClientInterface
      * @return  bool
      */
     public function set($key, $value, $timeout = 0);
+
+    /**
+     * @param string $key
+     * @param int $timestamp
+     * @return bool
+     */
+    public function expireAt($key, $timestamp);
 }
