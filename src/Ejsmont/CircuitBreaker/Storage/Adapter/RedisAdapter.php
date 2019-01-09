@@ -81,7 +81,7 @@ class RedisAdapter extends BaseAdapter {
      */
     protected function save($key, $value, $ttl) {
         try {
-            $this->redis->set($key, serialize($value));
+            $this->redis->set($key, $value);
             $this->redis->expireAt($key, time() + $ttl);
         } catch (\Exception $e) {
             throw new StorageException("Failed to save redis key: $key", 1, $e);
