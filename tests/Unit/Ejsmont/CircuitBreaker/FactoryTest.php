@@ -4,8 +4,9 @@ namespace Tests\Unit\Ejsmont\CircuitBreaker;
 
 use Ejsmont\CircuitBreaker\Factory;
 use Ejsmont\CircuitBreaker\CircuitBreakerInterface;
+use PHPUnit\Framework\TestCase;
 
-class FactoryTest extends \PHPUnit_Framework_TestCase {
+class FactoryTest extends TestCase {
 
     public function testThreshold() {
         if(!function_exists('apc_clear_cache')){

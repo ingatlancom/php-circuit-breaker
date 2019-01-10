@@ -5,8 +5,9 @@ namespace Tests\Unit\Ejsmont\CircuitBreaker\Adapter;
 use Ejsmont\CircuitBreaker\Storage\Adapter\ApcAdapter;
 use Ejsmont\CircuitBreaker\Storage\Decorator\ArrayDecorator;
 use Ejsmont\CircuitBreaker\Storage\StorageException;
+use PHPUnit\Framework\TestCase;
 
-class ArrayDecoratorTest extends \PHPUnit_Framework_TestCase {
+class ArrayDecoratorTest extends TestCase {
 
     /**
      * @var ArrayDecorator 

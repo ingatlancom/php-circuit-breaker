@@ -3,8 +3,9 @@
 namespace Tests\Unit\Ejsmont\CircuitBreaker\Adapter;
 
 use Ejsmont\CircuitBreaker\Storage\Adapter\ApcAdapter;
+use PHPUnit\Framework\TestCase;
 
-class ApcAdapterTest extends \PHPUnit_Framework_TestCase {
+class ApcAdapterTest extends TestCase {
 
     private $_adapter;
 

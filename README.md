@@ -129,15 +129,9 @@ implement your own custom StorageAdapter.
 
 # Running tests
 
-* Tests are run via PHPUnit It is assumed to be installed via PEAR.
-* Tests can be ran using phpunit alone or via ant build targets.
-* The "ci" target generate code coverage repor, "phpunit" target does not.
+Tests are run via PHPUnit. You can run all tests by any of the following:
 
-You can run all tests by any of the following:
-
-    ant
-    ant phpunit
-    ant ci
+    phpunit //or vendor/bin/phpunit
 
 You can run selected test case by running:
 

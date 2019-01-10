@@ -3,8 +3,9 @@
 namespace Tests\Unit\Ejsmont\CircuitBreaker\Adapter;
 
 use Ejsmont\CircuitBreaker\Storage\Adapter\MemcachedAdapter;
+use PHPUnit\Framework\TestCase;
 
-class MemcachedAdapterTest extends \PHPUnit_Framework_TestCase {
+class MemcachedAdapterTest extends TestCase {
 
     /**
      * @var MemcachedAdapter 

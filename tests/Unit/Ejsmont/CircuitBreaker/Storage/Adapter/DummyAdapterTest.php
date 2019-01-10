@@ -2,10 +2,10 @@
 
 namespace Tests\Unit\Ejsmont\CircuitBreaker\Adapter;
 
-use Ejsmont\CircuitBreaker\Factory;
 use Ejsmont\CircuitBreaker\Storage\Adapter\DummyAdapter;
+use PHPUnit\Framework\TestCase;
 
-class DummyAdapterTest extends \PHPUnit_Framework_TestCase {
+class DummyAdapterTest extends TestCase {
 
     private $_adapter;
 

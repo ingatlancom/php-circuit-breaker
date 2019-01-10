@@ -3,8 +3,9 @@
 namespace Tests\Unit\Ejsmont\CircuitBreaker\Adapter;
 
 use Ejsmont\CircuitBreaker\Storage\Adapter\RedisAdapter;
+use PHPUnit\Framework\TestCase;
 
-class RedisAdapterTest extends \PHPUnit_Framework_TestCase {
+class RedisAdapterTest extends TestCase {
 
     /**
      * @var RedisAdapter
