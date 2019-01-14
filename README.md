@@ -5,7 +5,7 @@
 A component helping you gracefully handle outages and timeouts of external services (usually remote, 3rd party services).
 
 It is a library providing extremely easy to use circuit breaker component. It does not require external dependencies and it has default storage
-implementations for APC and Memcached but can be extended multiple ways.
+implementations for APC, Memcached or Redis but can be extended multiple ways.
 
 # Frameworks support
 
@@ -32,7 +32,7 @@ build up an open source integration just like the one for [Symfony 2](https://gi
 You can download sources and use them with your autoloader or you can use composer in which case all you nees is a require like this:
 
     "require": {
-        "ejsmont-artur/php-circuit-breaker": "*"
+        "ingatlancom/php-circuit-breaker": "*"
     },
 
 After that you should update composer dependencies and you are good to go.
