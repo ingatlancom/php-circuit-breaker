@@ -26,9 +26,6 @@ use Ejsmont\CircuitBreaker\Storage\StorageException;
  */
 class RedisAdapter extends BaseAdapter {
 
-    /**
-     * @var RedisClientInterface
-     */
     private $redis;
 
     /**
@@ -63,7 +60,7 @@ class RedisAdapter extends BaseAdapter {
      */
     protected function load($key) {
         try {
-            return $this->redis->get($key);
+            return unserialize($this->redis->get($key));
         } catch (\Exception $e) {
             throw new StorageException("Failed to load redis key: $key", 1, $e);
         }
@@ -81,7 +78,8 @@ class RedisAdapter extends BaseAdapter {
      */
     protected function save($key, $value, $ttl) {
         try {
-            $this->redis->set($key, $value, $ttl);
+            $this->redis->set($key, serialize($value));
+            $this->redis->expireAt($key, time() + $ttl);
         } catch (\Exception $e) {
             throw new StorageException("Failed to save redis key: $key", 1, $e);
         }
