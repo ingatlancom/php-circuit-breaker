@@ -2,7 +2,7 @@
 
 /**
  * This file is part of the php-circuit-breaker package.
- * 
+ *
  * @link https://github.com/ejsmont-artur/php-circuit-breaker
  * @link http://artur.ejsmont.org/blog/circuit-breaker
  * @author Artur Ejsmont
@@ -20,7 +20,7 @@ use Ejsmont\CircuitBreaker\Storage\StorageException;
  * Super fast, safe, always available (if installed).
  * Does not introduce remote point of failure.
  * Can be efficently used to load/save each attribute separately if you wish
- * 
+ *
  * @see Ejsmont\CircuitBreaker\Storage\StorageInterface
  * @package Ejsmont\CircuitBreaker\Components
  */
@@ -28,7 +28,7 @@ class ApcAdapter extends BaseAdapter {
 
     /**
      * Configure instance
-     * 
+     *
      * @param Integer $ttl          How long should circuit breaker data persist (between updates)
      * @param String  $cachePrefix  Value has to be string. If empty default cache key prefix is used.
      */
@@ -38,7 +38,7 @@ class ApcAdapter extends BaseAdapter {
 
     /**
      * Helper method to make sure that APC extension is loaded
-     * 
+     *
      * @throws Ejsmont\CircuitBreaker\Storage\StorageException if APC is not loaded
      * @return void
      */
@@ -50,10 +50,10 @@ class ApcAdapter extends BaseAdapter {
 
     /**
      * Loads item by cache key.
-     * 
+     *
      * @param string $key
      * @return mixed
-     * 
+     *
      * @throws Ejsmont\CircuitBreaker\Storage\StorageException if storage error occurs, handler can not be used
      */
     protected function load($key) {
@@ -62,12 +62,12 @@ class ApcAdapter extends BaseAdapter {
 
     /**
      * Save item in the cache.
-     * 
+     *
      * @param string $key
      * @param string $value
      * @param int $ttl
      * @return void
-     * 
+     *
      * @throws Ejsmont\CircuitBreaker\Storage\StorageException if storage error occurs, handler can not be used
      */
     protected function save($key, $value, $ttl) {

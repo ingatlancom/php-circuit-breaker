@@ -13,7 +13,7 @@ class FactoryTest extends TestCase {
             $this->markTestSkipped("APC not installed");
         }
         apc_clear_cache('user');
-    
+
         $factory = new Factory();
         $cb = $factory->getSingleApcInstance(3);
 
@@ -44,7 +44,7 @@ class FactoryTest extends TestCase {
             $this->markTestSkipped("extension not loaded");
         }
         $this->_connection = new \Memcached();
-        $this->_connection->addServer("localhost", 11211);
+        $this->_connection->addServer('memcached', 11211);
 
         $factory = new Factory();
         $cb = $factory->getMemcachedInstance($this->_connection, 3, 1);
