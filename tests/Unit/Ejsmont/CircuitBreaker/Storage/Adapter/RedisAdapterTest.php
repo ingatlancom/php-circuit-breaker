@@ -19,11 +19,9 @@ class RedisAdapterTest extends TestCase {
 
     protected function setUp() {
         parent::setUp();
-        if (!class_exists('\Redis') || !class_exists('\Predis\Client')) {
-            $this->markTestSkipped("extension not loaded");
-        }
+
         $this->_connection = new \Redis();
-        $this->_connection->connect('localhost', 6379);
+        $this->_connection->connect('redis', 6379);
         $this->_adapter = new RedisAdapter($this->_connection);
     }
 
@@ -90,25 +88,25 @@ class RedisAdapterTest extends TestCase {
     }
 
     /**
-     * @expectedException Ejsmont\CircuitBreaker\Storage\StorageException 
+     * @expectedException Ejsmont\CircuitBreaker\Storage\StorageException
      */
     public function testFailSave() {
-        $memcachedMock = $this->getMock("Redis", array('get', 'set'), array(), "", false);
+        $memcachedMock = $this->getMockBuilder(\Redis::class)->setMethods(['get', 'set'])->getMock();
         $memcachedMock->expects($this->once())->method("set")->will($this->throwException(new \Exception("some error")));
-        
+
         $adapter = new RedisAdapter($memcachedMock);
         $adapter->saveStatus('someService', 'someValue', 951);
     }
 
     /**
-     * @expectedException Ejsmont\CircuitBreaker\Storage\StorageException 
+     * @expectedException Ejsmont\CircuitBreaker\Storage\StorageException
      */
     public function testFailLoad() {
-        $memcachedMock = $this->getMock("Redis", array('get', 'set'), array(), "", false);
+        $memcachedMock = $this->getMockBuilder(\Redis::class)->setMethods(['get', 'set'])->getMock();
         $memcachedMock->expects($this->once())->method("get")->will($this->throwException(new \Exception("some error")));
-        
+
         $adapter = new RedisAdapter($memcachedMock);
         $adapter->loadStatus('someService', 'someValue');
     }
-    
+
 }

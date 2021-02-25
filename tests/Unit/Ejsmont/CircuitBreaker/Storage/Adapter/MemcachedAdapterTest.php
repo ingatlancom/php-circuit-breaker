@@ -8,7 +8,7 @@ use PHPUnit\Framework\TestCase;
 class MemcachedAdapterTest extends TestCase {
 
     /**
-     * @var MemcachedAdapter 
+     * @var MemcachedAdapter
      */
     private $_adapter;
 
@@ -19,11 +19,9 @@ class MemcachedAdapterTest extends TestCase {
 
     protected function setUp() {
         parent::setUp();
-        if (!class_exists('\Memcached')) {
-            $this->markTestSkipped("extension not loaded");
-        }
+
         $this->_connection = new \Memcached();
-        $this->_connection->addServer("localhost", 11211);
+        $this->_connection->addServer('memcached', 11211);
         $this->_adapter = new MemcachedAdapter($this->_connection);
     }
 
@@ -90,25 +88,25 @@ class MemcachedAdapterTest extends TestCase {
     }
 
     /**
-     * @expectedException Ejsmont\CircuitBreaker\Storage\StorageException 
+     * @expectedException Ejsmont\CircuitBreaker\Storage\StorageException
      */
     public function testFailSave() {
-        $memcachedMock = $this->getMock("Memcached", array('get', 'set'), array(), "", false);
+        $memcachedMock = $this->getMockBuilder(\Memcached::class)->setMethods(['get', 'set'])->getMock();
         $memcachedMock->expects($this->once())->method("set")->will($this->throwException(new \Exception("some error")));
-        
+
         $adapter = new MemcachedAdapter($memcachedMock);
         $adapter->saveStatus('someService', 'someValue', 951);
     }
 
     /**
-     * @expectedException Ejsmont\CircuitBreaker\Storage\StorageException 
+     * @expectedException Ejsmont\CircuitBreaker\Storage\StorageException
      */
     public function testFailLoad() {
-        $memcachedMock = $this->getMock("Memcached", array('get', 'set'), array(), "", false);
+        $memcachedMock = $this->getMockBuilder(\Memcached::class)->setMethods(['get', 'set'])->getMock();
         $memcachedMock->expects($this->once())->method("get")->will($this->throwException(new \Exception("some error")));
-        
+
         $adapter = new MemcachedAdapter($memcachedMock);
         $adapter->loadStatus('someService', 'someValue');
     }
-    
+
 }

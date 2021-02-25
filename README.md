@@ -9,17 +9,17 @@ implementations for APC, Memcached or Redis but can be extended multiple ways.
 
 # Frameworks support
 
-This library does not require any particular PHP framework, all you need is PHP 5.3 or higher.
+This library does not require any particular PHP framework, all you need is PHP 7.4 or higher.
 
 ## Symfony 2
 
-If you are using [Symfony 2](https://github.com/symfony/symfony) framework you should use 
-[php-circuit-breaker-bundle](https://github.com/ejsmont-artur/php-circuit-breaker-bundle). It is a bundle i have 
+If you are using [Symfony 2](https://github.com/symfony/symfony) framework you should use
+[php-circuit-breaker-bundle](https://github.com/ejsmont-artur/php-circuit-breaker-bundle). It is a bundle i have
 created to wrap up php-circuit-breaker and integrate it with [Symfony 2](https://github.com/symfony/symfony) components and Dependency Injection.
 
 ## Other Frameworks
 
-If you are using other frameworks and you would like to use php-circuit-breaker please let me know and we can try to 
+If you are using other frameworks and you would like to use php-circuit-breaker please let me know and we can try to
 build up an open source integration just like the one for [Symfony 2](https://github.com/symfony/symfony).
 
 # Motivation & Benefits
@@ -71,7 +71,7 @@ Code of your application could look something like:
 * Web application depends on third party service (for example a payment gateway).
 * Web application needs to keep track when 3rd party service is unavailable.
 * Application can not become slow/unavailable, it has to tell user that features are limited or just hide them.
-* Application uses circuit breaker before checkout page rendering and if particular payment gateway is unavailable 
+* Application uses circuit breaker before checkout page rendering and if particular payment gateway is unavailable
 payment option is hidden from the user.
 
 As you can see that is a very powerful concept of selectively disabling feautres at runtime but still allowing the
@@ -95,7 +95,7 @@ Backend talking to the payment service could look like this:
     }
 </pre>
 
-Since you are recording failed and successful operations you can now use them in the front end as well 
+Since you are recording failed and successful operations you can now use them in the front end as well
 to hide payment options that are failing.
 
 Frontend rendering the available payment options could look like this:
@@ -113,30 +113,19 @@ Frontend rendering the available payment options could look like this:
 * Track multiple services through a single Circuit Breaker instance.
 * Pluggable backend adapters, provided APC and Memcached by default.
 * Customisable service thresholds. You can define how many failures are necessary for service to be considered down.
-* Customisable retry timeout. You do not want to disable the service forever. After provided timeout 
-circuit breaker will allow a single process to attempt 
+* Customisable retry timeout. You do not want to disable the service forever. After provided timeout
+circuit breaker will allow a single process to attempt
 
 # Performance Impact
 
-Overhead of the Circuit Breaker is negligible. 
+Overhead of the Circuit Breaker is negligible.
 
 APC implementation takes roughly 0.0002s to perform isAvailable() and then reportSuccess() or reportFailure().
 
-Memcache adapter is in range of 0.0005s when talking to the local memcached process. 
+Memcache adapter is in range of 0.0005s when talking to the local memcached process.
 
 The only potential performance impact is network connection time. If you chose to use remote memcached server or
 implement your own custom StorageAdapter.
-
-# Running tests
-
-Tests are run via PHPUnit. You can run all tests by any of the following:
-
-    phpunit //or vendor/bin/phpunit
-
-You can run selected test case by running:
-
-    cd tests
-    phpunit Unit/Ejsmont/CircuitBreaker/Storage/Adapter/DummyAdapterTest.php
 
 ## Details
 
